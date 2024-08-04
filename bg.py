@@ -8,7 +8,7 @@ class BackgroundContainer():
             
             content=ft.Column(
                 controls=[
-                    ft.Text("Youtube Downloader", size=24)
+                    ft.Text("Youtube Downloader", size=60, font_family='VT323')
                 ]
                 
             ),
