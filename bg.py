@@ -9,7 +9,7 @@ class BackgroundContainer():
             content=ft.Column(
                 controls=[
                     ft.Text("Youtube Downloader", size=24)
-                ],
+                ]
                 
             ),
 
@@ -20,8 +20,6 @@ class BackgroundContainer():
             ),
             
             alignment=ft.alignment.center,
-            width=500,
-            height=650,
             margin=margin.all(-10),
             expand=True,
             padding=0,
