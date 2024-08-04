@@ -1,3 +1,4 @@
+from turtle import bgcolor
 import flet as ft
 from flet import *
 
@@ -6,21 +7,24 @@ class Elements():
 
         self.input_container = Container(
 
-            content=Row(
+            content=Stack(
                 controls=[
-                    ft.TextField(hint_text="Enter the video link")   
+                    ft.TextField(hint_text="Enter the video link", width=700, height=50)
 
                 ],
+
+                alignment=ft.alignment.center
+          
+                
+
+
 
                
 
 
-
             ),
-
-            expand=True,
-            alignment=ft.alignment.top_left
-
+            alignment=ft.Alignment(0,-0.6),
+            
             
 
 
