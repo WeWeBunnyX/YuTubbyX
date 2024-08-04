@@ -1,6 +1,7 @@
 import flet as ft
 from flet import * 
 from bg import BackgroundContainer
+from elements import Elements
 
 def main(page:Page):
     page.title='Youtube Downloader'
@@ -12,7 +13,20 @@ def main(page:Page):
     }
 
     background= BackgroundContainer().get_container()
-    page.add(background)
+    ui_elements = Elements().get_container()
+
+    main_container = ft.Container(
+        content=ft.Stack(
+            controls=[
+                background,
+                ui_elements,
+            ],
+        ),
+        expand=True
+    )
+    
+
+    page.add(main_container)
     page.update()
 
 if __name__ == "__main__":
