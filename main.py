@@ -13,13 +13,13 @@ def main(page:Page):
     }
 
     background= BackgroundContainer().get_container()
-    ui_elements = Elements().get_container()
+    ui_elements= Elements().get_containers() 
 
     main_container = ft.Container(
         content=ft.Stack(
             controls=[
                 background,
-                ui_elements,
+                ui_elements
             ],
         ),
         expand=True
