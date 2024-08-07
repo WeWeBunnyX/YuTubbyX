@@ -3,6 +3,7 @@ from flet import *
 from bg import BackgroundContainer
 from elements import Elements
 
+
 def main(page:Page):
     page.title='Youtube Downloader'
     page.window.width=500
@@ -13,7 +14,7 @@ def main(page:Page):
     }
 
     background= BackgroundContainer().get_container()
-    ui_elements= Elements().get_containers() 
+    ui_elements= Elements(page).get_containers() 
 
     main_container = ft.Container(
         content=ft.Stack(

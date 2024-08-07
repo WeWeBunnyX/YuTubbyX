@@ -6,7 +6,8 @@ from pytube.exceptions import *
 
 
 class Elements:
-    def __init__(self):
+    def __init__(self, page:Page):
+        self.page = page
 
         self.text_field = TextField(hint_text="Enter the video link", width=700, height=50)
 
@@ -43,6 +44,7 @@ class Elements:
                     self.text_field_container,
                     self.button_container,
                     self.image_container
+                    
                 ],
                 alignment=MainAxisAlignment.CENTER,
                 spacing=0
@@ -51,6 +53,7 @@ class Elements:
             expand=True,
             #bgcolor='white'
         )
+
 
 
 
@@ -72,6 +75,7 @@ class Elements:
             print("The video is a live stream, which cannot be processed.")
         except RegexMatchError:
             print("The provided URL is not a valid YouTube URL.")
+            self.notif_snack_bar("The provided URL is not a valid YouTube URL")
         except MembersOnly:
             print("Members only")    
         except VideoUnavailable:
@@ -81,12 +85,22 @@ class Elements:
             
 
 
-
     def update_image_source(self, thumbnail_url: str):
          self.image.src = thumbnail_url
          self.image.update()
 
+
         
+    def notif_snack_bar(self, message:str):
+        snack_bar = SnackBar(
+            content= Text(message),
+            duration=8, 
+            open=True, 
+        )
+
+        self.page.snack_bar = snack_bar
+        self.page.update()
+
 
     def get_containers(self):
         return self.input_container
