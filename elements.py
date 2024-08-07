@@ -1,7 +1,7 @@
 import flet as ft
 from flet import *
 from pytube import YouTube
-from pytube.exceptions import RegexMatchError, VideoUnavailable, LiveStreamError
+from pytube.exceptions import *
 
 
 
@@ -68,10 +68,12 @@ class Elements:
          print(f"Thumbnail URL: {video_thumbnail}")
          self.update_image_source(video_thumbnail)
 
+        except LiveStreamError:
+            print("The video is a live stream, which cannot be processed.")
         except RegexMatchError:
             print("The provided URL is not a valid YouTube URL.")
-        except LiveStreamError:
-            print("The video is a live stream, which cannot be processed.")    
+        except MembersOnly:
+            print("Members only")    
         except VideoUnavailable:
             print("The video is unavailable. It may have been removed or restricted.")
         except Exception as ex:
