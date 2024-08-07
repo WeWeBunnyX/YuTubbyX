@@ -27,7 +27,7 @@ class Elements:
         )
 
 
-        self.image = Image(src="", width=500, height=500)
+        self.image = Image(src="null", width=500, height=500)
 
         self.image_container = Container(
             content=self.image,
