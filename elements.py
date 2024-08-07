@@ -94,7 +94,8 @@ class Elements:
     def notif_snack_bar(self, message:str):
         snack_bar = SnackBar(
             content= Text(message),
-            duration=8, 
+            duration=1000, 
+            action="Understood",
             open=True, 
         )
 
