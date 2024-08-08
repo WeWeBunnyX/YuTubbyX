@@ -9,6 +9,7 @@ class Elements:
     def __init__(self, page:Page):
         self.page = page
 
+
         self.text_field = TextField(hint_text="Enter the video link", width=700, height=50)
 
         self.text_field_container = Container(
@@ -18,6 +19,8 @@ class Elements:
             height=220
         )
 
+
+
         self.mp4_button = ElevatedButton("Convert to MP4", on_click= self.on_click_event)
 
         self.button_container = Container(
@@ -26,6 +29,7 @@ class Elements:
             #bgcolor='purple',
             height = 50
         )
+
 
 
         self.image = Image(src="null", width=500, height=500)
@@ -39,12 +43,35 @@ class Elements:
         )
 
 
+        self.download_button = ElevatedButton("Download Video", )
+
+        self.download_button_container = Container(
+            content= Row(
+                controls=[
+                    self.download_button
+                          
+                ],
+                alignment=ft.MainAxisAlignment.CENTER,
+                vertical_alignment=ft.CrossAxisAlignment.CENTER,
+
+
+
+            ),
+            #bgcolor='red',
+            height=60,
+            alignment=ft.alignment.center
+
+
+        )
+
+
         self.input_container = Container(
             content=Column(
                 controls=[
                     self.text_field_container,
                     self.button_container,
-                    self.image_container
+                    self.image_container,
+                    self.download_button_container
                     
                 ],
                 alignment=MainAxisAlignment.CENTER,
