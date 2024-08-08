@@ -1,7 +1,7 @@
 import flet as ft
 from flet import *
-from pytube import YouTube
-from pytube.exceptions import *
+from pytubefix import YouTube
+from pytubefix.exceptions import *
 
 
 
@@ -15,7 +15,7 @@ class Elements:
             content= self.text_field,
             alignment=ft.Alignment(0, 0.7),
             #bgcolor='blue',
-            height=260
+            height=220
         )
 
         self.mp4_button = ElevatedButton("Convert to MP4", on_click= self.on_click_event)
@@ -24,7 +24,7 @@ class Elements:
             content=self.mp4_button,
             alignment=ft.Alignment(0, -1),
             #bgcolor='purple',
-            height = 100
+            height = 50
         )
 
 
@@ -34,7 +34,8 @@ class Elements:
             content=self.image,
             alignment=ft.alignment.center,
             expand=True,
-            #bgcolor='pink'
+            #bgcolor='pink',
+            
         )
 
 
@@ -63,6 +64,7 @@ class Elements:
          yt_url = self.text_field.value
          print(f"Video URL: {yt_url}")
          yt = YouTube(yt_url)
+         yt.streams
 
          video_title = yt.title
          print(f"Video Title: {video_title}")
@@ -94,7 +96,7 @@ class Elements:
     def notif_snack_bar(self, message:str):
         snack_bar = SnackBar(
             content= Text(message),
-            duration=1000, 
+            duration=1500, 
             action="Understood",
             open=True, 
         )
