@@ -43,7 +43,7 @@ class Elements:
         )
 
 
-        self.download_button = ElevatedButton("Download Video", )
+        self.download_button = ElevatedButton("Download Video", on_click= self.on_click_download_button)
 
         self.download_button_container = Container(
             content= Row(
@@ -53,13 +53,16 @@ class Elements:
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                
 
 
 
             ),
             #bgcolor='red',
             height=60,
-            alignment=ft.alignment.center
+            alignment=ft.alignment.center,
+            
+            
 
 
         )
@@ -91,7 +94,6 @@ class Elements:
          yt_url = self.text_field.value
          print(f"Video URL: {yt_url}")
          yt = YouTube(yt_url)
-         yt.streams
 
          video_title = yt.title
          print(f"Video Title: {video_title}")
@@ -99,6 +101,7 @@ class Elements:
          video_thumbnail = yt.thumbnail_url
          print(f"Thumbnail URL: {video_thumbnail}")
          self.update_image_source(video_thumbnail)
+         print()
 
         except LiveStreamError:
             print("The video is a live stream, which cannot be processed.")
@@ -111,9 +114,24 @@ class Elements:
             print("The video is unavailable. It may have been removed or restricted.")
         except Exception as ex:
             print(f"An unexpected error occurred: {ex}")
-            
 
 
+
+    def on_click_download_button(self, e:ControlEvent):
+        try:
+            yt_url = self.text_field.value
+            yt = YouTube(yt_url)
+            video_stream = yt.streams.filter(progressive=True, file_extension='mp4').get_highest_resolution()
+            print(f"{video_stream}")
+
+            video_stream.download(output_path='/path')
+
+        except Exception as ex:
+            self.notif_snack_bar(f"An unexpected error occurred: {ex}")
+
+
+
+                
     def update_image_source(self, thumbnail_url: str):
          self.image.src = thumbnail_url
          self.image.update()
