@@ -61,9 +61,8 @@ class Elements:
             #bgcolor='red',
             height=60,
             alignment=ft.alignment.center,
+            visible=False
             
-            
-
 
         )
 
@@ -101,6 +100,10 @@ class Elements:
          video_thumbnail = yt.thumbnail_url
          print(f"Thumbnail URL: {video_thumbnail}")
          self.update_image_source(video_thumbnail)
+         
+         self.download_button_container.visible= True
+         self.page.update()
+
          print()
 
         except LiveStreamError:
