@@ -44,11 +44,19 @@ class Elements:
 
 
         self.download_button = ElevatedButton("Download Video", on_click= self.on_click_download_button)
+        self.download360p_button = ElevatedButton("Download 360p", visible=False, on_click=lambda e: self.download_video_quality('360p'))
+        self.download480p_button = ElevatedButton("Download 480p", visible=False, on_click=lambda e: self.download_video_quality('480p'))
+        self.download720p_button = ElevatedButton("Download 720p", visible=False, on_click=lambda e: self.download_video_quality('720p'))
+        self.download1080p_button = ElevatedButton("Download 1080p", visible=False, on_click=lambda e: self.download_video_quality('1080p'))
 
         self.download_button_container = Container(
             content= Row(
                 controls=[
-                    self.download_button
+                    self.download_button,
+                    self.download360p_button,
+                    self.download480p_button,
+                    self.download720p_button,
+                    self.download1080p_button
                           
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
@@ -100,6 +108,10 @@ class Elements:
          video_thumbnail = yt.thumbnail_url
          print(f"Thumbnail URL: {video_thumbnail}")
          self.update_image_source(video_thumbnail)
+         print()
+
+         video_stream = yt.streams.filter(adaptive=True)
+         print(f"{video_stream}")
          
          self.download_button_container.visible= True
          self.page.update()
@@ -124,14 +136,59 @@ class Elements:
         try:
             yt_url = self.text_field.value
             yt = YouTube(yt_url)
-            video_stream = yt.streams.filter(progressive=True, file_extension='mp4').get_highest_resolution()
+            video_stream = yt.streams.filter(adaptive=True, file_extension='mp4').get_highest_resolution()
             print(f"{video_stream}")
 
-            video_stream.download(output_path='/path')
+            video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
 
         except Exception as ex:
             self.notif_snack_bar(f"An unexpected error occurred: {ex}")
 
+
+    def download_video_quality(self, resolution:str):
+        yt_url = self.text_field.value
+        yt = YouTube(yt_url)
+
+        video_stream = yt.streams.filter(adaptive=True, res=resolution).first()
+
+        if video_stream is None:
+         print(f"No stream found for resolution: {resolution}")
+
+
+        if resolution == '360p':
+         self.download360p_button.visible=True
+         self.page.update()
+         print("Downloading 360p video...")
+         
+        elif resolution == '480p':
+         self.download480p_button.visible=True
+         self.page.update()
+         print("Downloading 480p video...")
+
+        elif resolution == '720p':
+         self.download720p_button.visible=True
+         self.page.update()
+         print("Downloading 720p video...")
+
+        elif resolution == '1080p':
+         self.download1080p_button.visible=True
+         self.page.update()
+         print("Downloading 1080p video...")
+
+        elif resolution == '1440p':
+         #self.download1440_button.visible=True
+         self.page.update()
+         print("Downloading 1440p video...")
+
+        elif resolution == '2160p':
+         #self.download2160p_button.visible=True
+         self.page.update()
+         print("Downloading 4K video (2160p)...")
+
+        else:
+         print("?")
+    
+        video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
 
 
                 
