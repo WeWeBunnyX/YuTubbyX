@@ -112,7 +112,7 @@ class Elements:
 
          video_stream = yt.streams.filter( type='video', file_extension='mp4')
          print(f"{video_stream}")
-         
+
          self.download_button_container.visible= True
          self.page.update()
 
@@ -132,7 +132,7 @@ class Elements:
 
 
 
-    def on_click_download_button(self, e:ControlEvent):
+    def on_click_download_button(self, e:ControlEvent):   #Function to be removed in upcoming changes
         try:
             yt_url = self.text_field.value
             yt = YouTube(yt_url)
@@ -155,7 +155,7 @@ class Elements:
          print(f"No stream found for resolution: {resolution}")
 
 
-        if resolution == '360p':
+        if resolution == '360p':                    #Incorrect Approach to display download buttons of found resolutions only (commented out lines)
          #self.download360p_button.visible=True
          #self.page.update()
          print("Downloading 360p video...")
