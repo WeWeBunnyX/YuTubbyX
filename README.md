@@ -19,7 +19,7 @@
 
 1. **Clone the Repository**
    ```sh
-   git clone https://github.com/WeWeBunnyX/yutubbyx.git
+   git clone https://github.com/WeWeBunnyX/YuTubbyX.git
 
 2. **Navigate to the Project Directory**
    ```sh
