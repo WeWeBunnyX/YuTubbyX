@@ -5,7 +5,7 @@
 ## Features
 
 - **Easy Video Downloading**: Download YouTube videos by entering their URL.
-- **Ad Free*: Say no the nasty adcertisments and popups packed with malware.
+- **Ad Free**: Say no the nasty adcertisments and popups packed with malware.
 - **Cross Platform**: Easily compile for Windows, MacOS, Linux, Android and Web
 - **Video Quality Selection**: Choose from various resolutions for the downloaded videos.
 - **User-Friendly Interface**: Designed with Flet for a smooth and interactive user experience.
