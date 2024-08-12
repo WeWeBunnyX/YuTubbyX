@@ -48,7 +48,7 @@
  Open an Issue: Report bugs or request features by opening an issue on the Issues page.
 
 ## Acknowledgements
-- [Flet](https://flet.dev/)for building interactive UI in Python powered by Flutter.
+- [Flet](https://flet.dev/) for building interactive UI in Python powered by Flutter.
 - [pytubefix](https://github.com/JuanBindez/pytubefix) for handling YouTube video downloads.
 
 ## License
