@@ -2,7 +2,8 @@ import flet as ft
 from flet import *
 from pytubefix import YouTube
 from pytubefix.exceptions import *
-
+import ffmpeg
+import os
 
 
 class Elements:
@@ -42,8 +43,7 @@ class Elements:
             
         )
 
-
-        self.download_button = ElevatedButton("Download Video", on_click= self.on_click_download_button)
+       
         self.download360p_button = ElevatedButton("Download 360p", on_click=lambda e: self.download_video_quality('360p'))
         self.download480p_button = ElevatedButton("Download 480p",  on_click=lambda e: self.download_video_quality('480p'))
         self.download720p_button = ElevatedButton("Download 720p", on_click=lambda e: self.download_video_quality('720p'))
@@ -52,7 +52,6 @@ class Elements:
         self.download_button_container = Container(
             content= Row(
                 controls=[
-                    self.download_button,
                     self.download360p_button,
                     self.download480p_button,
                     self.download720p_button,
@@ -110,7 +109,7 @@ class Elements:
          self.update_image_source(video_thumbnail)
          print()
 
-         video_stream = yt.streams.filter( type='video', file_extension='mp4')
+         video_stream = yt.streams.filter( type='video', file_extension='mp4', progressive=False)
          print(f"{video_stream}")
 
          self.download_button_container.visible= True
@@ -132,28 +131,16 @@ class Elements:
 
 
 
-    def on_click_download_button(self, e:ControlEvent):   #Function to be removed in upcoming changes
-        try:
-            yt_url = self.text_field.value
-            yt = YouTube(yt_url)
-            video_stream = yt.streams.filter(adaptive=True, file_extension='mp4').get_highest_resolution()
-            print(f"{video_stream}")
-
-            video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
-
-        except Exception as ex:
-            self.notif_snack_bar(f"An unexpected error occurred: {ex}")
-
-
     def download_video_quality(self, resolution:str):
         yt_url = self.text_field.value
         yt = YouTube(yt_url)
 
-        video_stream = yt.streams.filter(res=resolution, type='video', file_extension='mp4').first()
+        video_stream = yt.streams.filter(res=resolution, only_video=True, progressive=False).first()
 
         if video_stream is None:
          print(f"No stream found for resolution: {resolution}")
 
+        self.download_audio()
 
         if resolution == '360p':                    #Incorrect Approach to display download buttons of found resolutions only (commented out lines)
          #self.download360p_button.visible=True
@@ -189,6 +176,20 @@ class Elements:
          print("?")
     
         video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
+        self.merge_video_audio()
+        
+
+
+
+    def download_audio(self):
+        yt_url = self.text_field.value
+        yt = YouTube(yt_url)
+
+        audio_stream = yt.streams.filter(adaptive=True, only_audio=True).last()
+        print()
+        print(f"{audio_stream}")
+
+        audio_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
 
 
                 
@@ -212,3 +213,26 @@ class Elements:
 
     def get_containers(self):
         return self.input_container
+    
+
+    def merge_video_audio(self):
+        yt_url = self.text_field.value
+        yt = YouTube(yt_url)
+
+        self.video_path = f'{self.video_title}.mp4'
+        self.audio_path = f'{self.video_title}.webm'
+        self.output_path = 'output.mp4'
+
+        self.video_title = yt.title #.replace('/', '_').replace('\\', '_') 
+        if not os.path.isfile(self.video_path):
+            raise FileNotFoundError(f"Video file '{self.video_path}' not found.")
+        if not os.path.isfile(self.audio_path):
+            raise FileNotFoundError(f"Audio file '{self.audio_path}' not found.")
+
+        ffmpeg.input(self.video_path).output(self.audio_path, vcodec='copy', acodec='opus', strict='experimental', shortest=None).run()
+
+        print(f"Merged video and audio into '{self.output_path}'.")
+    
+
+
+
