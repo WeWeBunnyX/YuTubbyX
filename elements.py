@@ -226,5 +226,3 @@ class Elements:
     def get_containers(self):
         return self.input_container
     
-    def get_text_field_value(self):
-        return self.text_field.value
