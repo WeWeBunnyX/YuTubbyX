@@ -60,8 +60,7 @@ class Elements:
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                
-
+        
 
 
             ),
@@ -153,7 +152,7 @@ class Elements:
         if video_stream is None:
          print(f"No stream found for resolution: {resolution}")
 
-        self.download_audio()
+        #self.download_audio()
 
         if resolution == '360p':                    #Incorrect Approach to display download buttons of found resolutions only (commented out lines)
          #self.download360p_button.visible=True
@@ -188,7 +187,7 @@ class Elements:
         else:
          print("?")
     
-        video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
+        #video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
         
 
 
