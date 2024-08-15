@@ -2,6 +2,8 @@ import flet as ft
 from flet import *
 from pytubefix import YouTube
 from pytubefix.exceptions import *
+from moviepy.editor import *
+import os
 
 
 class Elements:
@@ -42,7 +44,6 @@ class Elements:
         )
 
 
-        self.download_button = ElevatedButton("Download Video", on_click= self.on_click_download_button)
         self.download360p_button = ElevatedButton("Download 360p", on_click=lambda e: self.download_video_quality('360p'))
         self.download480p_button = ElevatedButton("Download 480p",  on_click=lambda e: self.download_video_quality('480p'))
         self.download720p_button = ElevatedButton("Download 720p", on_click=lambda e: self.download_video_quality('720p'))
@@ -51,7 +52,6 @@ class Elements:
         self.download_button_container = Container(
             content= Row(
                 controls=[
-                    self.download_button,
                     self.download360p_button,
                     self.download480p_button,
                     self.download720p_button,
@@ -129,65 +129,40 @@ class Elements:
             print(f"An unexpected error occurred: {ex}")
 
 
-
-    def on_click_download_button(self, e:ControlEvent):   #Function to be removed in upcoming changes
-        try:
-            yt_url = self.text_field.value
-            yt = YouTube(yt_url)
-            video_stream = yt.streams.filter(adaptive=True, file_extension='mp4').get_highest_resolution()
-            print(f"{video_stream}")
-
-            video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
-
-        except Exception as ex:
-            self.notif_snack_bar(f"An unexpected error occurred: {ex}")
-
-
     def download_video_quality(self, resolution:str):
         yt_url = self.text_field.value
         yt = YouTube(yt_url)
 
         video_stream = yt.streams.filter(res=resolution, only_video=True, progressive=False).first()
+        self.download_audio()
 
         if video_stream is None:
          print(f"No stream found for resolution: {resolution}")
 
-        self.download_audio()
-
-        if resolution == '360p':                    #Incorrect Approach to display download buttons of found resolutions only (commented out lines)
-         #self.download360p_button.visible=True
-         #self.page.update()
+        if resolution == '360p':                 
          print("Downloading 360p video...")
          
         elif resolution == '480p':
-         #self.download480p_button.visible=True
-         #self.page.update()
          print("Downloading 480p video...")
 
         elif resolution == '720p':
-         #self.download720p_button.visible=True
-         #self.page.update()
          print("Downloading 720p video...")
 
         elif resolution == '1080p':
-         #self.download1080p_button.visible=True
-         #self.page.update()
          print("Downloading 1080p video...")
 
         elif resolution == '1440p':
-         #self.download1440_button.visible=True
-         #self.page.update()
          print("Downloading 1440p video...")
 
         elif resolution == '2160p':
-         #self.download2160p_button.visible=True
-         #self.page.update()
          print("Downloading 4K video (2160p)...")
 
         else:
          print("?")
     
         video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
+        self.audio_video_merge()
+        
 
 
     def download_audio(self):
@@ -223,5 +198,40 @@ class Elements:
     def get_containers(self):
         return self.input_container
     
+
+    def audio_video_merge(self):
+     yt_url = self.text_field.value
+     yt = YouTube(yt_url)
+     video_title = yt.title
     
-#hufhjfhjdhf
+     title = video_title.strip()  
+
+     video_path = f"{title}.mp4"
+     audio_path = f"{video_title}.webm"
+     
+     if not os.path.exists(video_path):
+        print(f"Error: The video file {video_path} does not exist.")
+        return
+    
+     if not os.path.exists(audio_path):
+        print(f"Error: The audio file {audio_path} does not exist.")
+        return
+
+     try:
+         video_clip = VideoFileClip(video_path)
+         audio_clip = AudioFileClip(audio_path)
+
+     except FileNotFoundError as e:
+        print(f"Error: {e}")
+        return
+
+     final_clip = video_clip.set_audio(audio_clip)
+
+     output_file = f"{title}_merged.mp4"
+     final_clip.write_videofile(output_file, codec='libx264')
+
+     video_clip.close()
+     audio_clip.close()
+     final_clip.close()
+
+     print(f"Video saved as {output_file}")
