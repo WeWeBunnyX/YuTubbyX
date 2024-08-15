@@ -160,7 +160,7 @@ class Elements:
         else:
          print("?")
     
-        video_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
+        video_stream.download(output_path='.')
         self.audio_video_merge()
         
 
@@ -173,7 +173,7 @@ class Elements:
         print()
         print(f"{audio_stream}")
 
-        audio_stream.download(output_path='C:/Users/SAMAMA/Desktop/App/Applicacion')
+        audio_stream.download(output_path='.')
 
 
                 
@@ -193,11 +193,7 @@ class Elements:
 
         self.page.snack_bar = snack_bar
         self.page.update()
-
-
-    def get_containers(self):
-        return self.input_container
-    
+        
 
     def audio_video_merge(self):
      yt_url = self.text_field.value
@@ -234,4 +230,18 @@ class Elements:
      audio_clip.close()
      final_clip.close()
 
-     print(f"Video saved as {output_file}")
+     self.notif_snack_bar(f"Video saved as {output_file}")
+
+     del_files_path = [f"{title}.mp4",f"{video_title}.webm" ]
+
+     for file in del_files_path:
+      try:
+          os.remove(file)
+
+      except FileNotFoundError:
+         print(f"File '{file}' not found.")
+
+
+    def get_containers(self):
+      return self.input_container
+    

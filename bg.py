@@ -8,8 +8,10 @@ class BackgroundContainer():
             
             content=ft.Column(
                 controls=[
-                    ft.Text("Youtube Downloader", size=60, font_family='VT323')
-                ]
+                    ft.Text(" YuTubbyX", size=60, font_family='VT323', text_align='center'),
+                    ft.Text("A Youtube Downloader", size=30, font_family='VT323')
+                ],
+                spacing=0
                 
             ),
 
@@ -22,7 +24,7 @@ class BackgroundContainer():
             alignment=ft.alignment.center,
             margin=margin.all(-10),
             expand=True,
-            padding=0,
+            padding=0
         )
 
     def get_container(self):
