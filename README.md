@@ -1,13 +1,13 @@
-# YuTubbyX : A Simple Youtube Downloader App 
+# YuTubbyX : A Simple Youtube Downloader Application
 
-**YuTubbyX** is a simple YouTube downloader application built using the `flet` framework and the `pytubefix` library. Users can download YouTube videos with ease through a modern graphical interface.
+**YuTubbyX** is a simple YouTube downloader application built using the `flet` framework, `pytubefix` and the `movietube` library. Users can download YouTube videos in all available resolutions with ease through a modern graphical interface.
 
 ## Features
 
 - **Easy Video Downloading**: Download YouTube videos by entering their URL.
 - **Ad Free**: Say no the nasty advertisments and popups packed with malware.
-- **Cross Platform**: Easily compile for Windows, MacOS, Linux, Android and Web
 - **Video Quality Selection**: Choose from various resolutions for the downloaded videos.
+- **Cross Platform**: Easily build for Windows, MacOS, Linux, Android and Web
 - **User-Friendly Interface**: Designed with Flet for a smooth and interactive user experience.
 
 ## Requirements
