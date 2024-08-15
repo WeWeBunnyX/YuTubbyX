@@ -15,6 +15,7 @@
 - Python 3.x
 - [Flet](https://flet.dev/) library
 - [pytubefix](https://github.com/JuanBindez/pytubefix) library
+- [moviepy](https://github.com/Zulko/moviepy)
 
 ## Installation
 
@@ -49,8 +50,9 @@
  Open an Issue: Report bugs or request features by opening an issue on the Issues page.
 
 ## Acknowledgements
-- [Flet](https://flet.dev/) for building interactive UI in Python powered by Flutter.
+- [Flet](https://github.com/flet-dev/flet) for building interactive UI in Python powered by Flutter.
 - [pytubefix](https://github.com/JuanBindez/pytubefix) for handling YouTube video downloads.
+- [moviepy](https://github.com/Zulko/moviepy) for handling YouTube video downloads.
 
 ## License
 - This project is licensed under the GNU GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
