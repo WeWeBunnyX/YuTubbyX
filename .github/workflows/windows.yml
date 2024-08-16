@@ -57,4 +57,3 @@ jobs:
         path: build/windows
         if-no-files-found: error
         overwrite: false
-
